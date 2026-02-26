@@ -3,8 +3,6 @@ package test.task.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -26,6 +24,13 @@ public class UserEntity {
     private LocalDateTime createdAt;
 
     public UserEntity() {}
+
+    public UserEntity(int id, String name, String email, int age, LocalDateTime createdAt) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.createdAt = createdAt;
+    }
 
     public UserEntity(String name, String email, int age, LocalDateTime createdAt) {
         this.name = name;
@@ -76,7 +81,7 @@ public class UserEntity {
                 + "Имя: " + name + '\n'
                 + "Почта: " + email + '\n'
                 + "Возраст: " + age + '\n'
-                + "Созда: " + createdAt + '\n'
+                + "Создан: " + createdAt + '\n'
                 + "---------------------------";
     }
 }

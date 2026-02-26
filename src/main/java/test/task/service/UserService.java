@@ -1,7 +1,6 @@
 package test.task.service;
 
 import test.task.dao.Dao;
-import test.task.dao.impl.UserEntityDaoImpl;
 import test.task.entity.UserEntity;
 
 import java.io.IOException;
@@ -9,7 +8,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserService {
-    private final Dao<UserEntity> userDao = new UserEntityDaoImpl();
+    private final Dao<UserEntity> userDao;
+
+    public UserService(Dao<UserEntity> userDao) {
+        this.userDao = userDao;
+    }
 
     public List<UserEntity> getAllUsers() throws IOException {
         return userDao.findAll();
@@ -19,12 +22,13 @@ public class UserService {
         return userDao.findById(id);
     }
 
-    public void createUser(String name, String email, int age) throws IOException {
+    public UserEntity createUser(String name, String email, int age) throws IOException {
         UserEntity user = new UserEntity(name, email, age, LocalDateTime.now());
         userDao.save(user);
+        return user;
     }
 
-    public void updateUser(int id, String name, String email, int age) throws IOException {
+    public UserEntity updateUser(int id, String name, String email, int age) throws IOException {
         UserEntity user = userDao.findById(id);
         if (name != null) {
             user.setName(name);
@@ -36,10 +40,12 @@ public class UserService {
             user.setAge(age);
         }
         userDao.update(user);
+        return user;
     }
 
-    public void deleteUser(int id) throws IOException {
+    public UserEntity deleteUser(int id) throws IOException {
         UserEntity user = userDao.findById(id);
         userDao.delete(user);
+        return user;
     }
 }

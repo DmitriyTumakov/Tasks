@@ -1,5 +1,6 @@
 package test.task;
 
+import test.task.dao.impl.UserEntityDaoImpl;
 import test.task.service.UserService;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        final UserService userService = new UserService();
+        final UserService userService = new UserService(new UserEntityDaoImpl());
         final Scanner scanner = new Scanner(System.in);
 
         int id = 0;

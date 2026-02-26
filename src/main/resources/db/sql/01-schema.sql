@@ -7,6 +7,4 @@ CREATE TABLE public.users
     created_at  DATE NOT NULL
 );
 
-select * from users;
-
 

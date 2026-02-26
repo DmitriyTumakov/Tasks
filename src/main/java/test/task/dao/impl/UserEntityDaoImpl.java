@@ -33,51 +33,57 @@ public class UserEntityDaoImpl implements Dao<UserEntity> {
     }
 
     @Override
-    public void save(UserEntity user) throws IOException {
+    public UserEntity save(UserEntity user) throws IOException {
         Transaction transaction = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.persist(user);
             transaction.commit();
             logger.log("Пользователь " + user.getId() + " создан", LogType.INFO, true);
+            return user;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             logger.log(e.getMessage(), LogType.ERROR, true);
         }
+        return null;
     }
 
     @Override
-    public void update(UserEntity user) throws IOException {
+    public UserEntity update(UserEntity user) throws IOException {
         Transaction transaction = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.merge(user);
             transaction.commit();
             logger.log("Информация о пользователе " + user.getId() + " обновлена", LogType.INFO, true);
+            return user;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             logger.log(e.getMessage(), LogType.ERROR, true);
         }
+        return null;
     }
 
     @Override
-    public void delete(UserEntity user) throws IOException {
+    public UserEntity delete(UserEntity user) throws IOException {
         Transaction transaction = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.remove(user);
             transaction.commit();
             logger.log("Пользователь " + user.getId() + " удалён", LogType.INFO, true);
+            return user;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             logger.log(e.getMessage(), LogType.ERROR, true);
         }
+        return null;
     }
 
     @Override
